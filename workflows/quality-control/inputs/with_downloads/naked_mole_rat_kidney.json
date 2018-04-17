@@ -1,0 +1,7 @@
+{
+  "quality_de_novo.sra": "SRR2124226",
+  "quality_de_novo.threads": 8,
+  "quality_de_novo.min_len": 40,
+  "quality_de_novo.q": 19,
+  "quality_de_novo.results_folder": "/pipelines/results/graywhale/transcriptome/NMR/kidney/1"
+}
