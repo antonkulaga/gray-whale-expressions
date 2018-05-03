@@ -29,6 +29,7 @@ task vsearch_make_index {
 
     command {
         vsearch --makeudb_usearch ${fasta} --output ${name}.udb
+        chmod -R o+rwx ${name}.udb
      }
 
   runtime {
