@@ -1,0 +1,7 @@
+{
+  "vsearch.query": "/pipelines/indexes/genage/lags/pro_worm_sequences.fasta",
+  "vsearch.result_name": "worm_pro_longevity_bowhead_greenland_kidney",
+  "vsearch.results_folder": "/pipelines/results/graywhale/lags/worm/pro",
+  "vsearch.db": "/pipelines/indexes/vsearch/bowhead_greenland_kidney.udb",
+  "vsearch.identity": "0.45"
+}
