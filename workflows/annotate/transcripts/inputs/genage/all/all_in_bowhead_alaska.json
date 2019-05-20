@@ -1,6 +1,6 @@
 {
-  "vsearch.query": "/pipelines/indexes/genage/lags/human_mouse_fly_worm_genage.fasta",
+  "vsearch.query": "/data/indexes/genage/lags/human_mouse_fly_worm_genage.fasta",
   "vsearch.result_name": "all_in_bowhead_alaska_liver",
-  "vsearch.results_folder": "/pipelines/results/graywhale/lags",
-  "vsearch.db": "/pipelines/indexes/vsearch/bowhead_alaska_liver.udb"
+  "vsearch.results_folder": "/data/results/graywhale/lags",
+  "vsearch.db": "/data/indexes/vsearch/bowhead_alaska_liver.udb"
 }

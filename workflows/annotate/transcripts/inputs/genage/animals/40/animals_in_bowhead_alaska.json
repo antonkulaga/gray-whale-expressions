@@ -1,7 +1,7 @@
 {
-  "vsearch.query": "/pipelines/indexes/genage/lags/mouse_fly_worm_genage.fasta",
+  "vsearch.query": "/data/indexes/genage/lags/mouse_fly_worm_genage.fasta",
   "vsearch.result_name": "animals_in_bowhead_alaska_liver",
-  "vsearch.results_folder": "/pipelines/results/graywhale/lags/animals/40",
-  "vsearch.db": "/pipelines/indexes/vsearch/bowhead_alaska_liver.udb",
+  "vsearch.results_folder": "/data/results/graywhale/lags/animals/40",
+  "vsearch.db": "/data/indexes/vsearch/bowhead_alaska_liver.udb",
   "vsearch.identity": "0.4"
 }

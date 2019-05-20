@@ -1,5 +1,7 @@
-workflow quality_de_novo {
+version development
 
+workflow quality_de_novo {
+input {
   Int threads
   Int min_len
   Int q
@@ -8,6 +10,8 @@ workflow quality_de_novo {
   String results_folder #will be created if needed
   String adapter = "TruSeq3-PE"
 
+
+}
   call report as initial_report_1 {
       input:
           sampleName = basename(reads_1, ".fastq.gz"),
@@ -81,11 +85,12 @@ workflow quality_de_novo {
 
 }
 
-
 task report {
-
+input{
   String sampleName
   File file
+
+}
 
   command {
     /opt/FastQC/fastqc ${file} -o .
@@ -101,11 +106,13 @@ task report {
 }
 
 task multi_report {
-
+input {
    File folder
    String report
    Array[File] last_reports #just a hack to make it wait for the folder to be created
 
+
+}
    command {
         multiqc ${folder} --outdir ${report}
    }
@@ -121,13 +128,14 @@ task multi_report {
 
 
 task trimmomatics {
-
+input {
     File reads_1
     File reads_2
     Int q
     Int min_len
     Int threads
     String adapter
+}
 
 
     command {
@@ -156,16 +164,27 @@ task trimmomatics {
 
 }
 
+
 task copy {
-    Array[File] files
-    String destination
+    input {
+        Array[File] files
+        String destination
+    }
+
+    String where = sub(destination, ";", "_")
 
     command {
-        mkdir -p ${destination}
-        cp -L -R -u ${sep=' ' files} ${destination}
+        mkdir -p ~{where}
+        cp -L -R -u ~{sep=' ' files} ~{where}
+        declare -a files=(~{sep=' ' files})
+        for i in ~{"$"+"{files[@]}"};
+          do
+              value=$(basename ~{"$"}i)
+              echo ~{where}/~{"$"}value
+          done
     }
 
     output {
-        Array[File] out = files
+        Array[File] out = read_lines(stdout())
     }
 }

@@ -1,8 +1,12 @@
+version development
+
 workflow Diamond_Index {
 
-  File db
-  String name
-  String results_folder
+    input {
+        File db
+        String name
+        String results_folder
+    }
 
   call diamond_index {
     input:
@@ -23,16 +27,17 @@ workflow Diamond_Index {
 }
 
 task diamond_index {
-
-  File fasta
-  String name
+    input {
+        File fasta
+        String name
+    }
 
     command {
         diamond makedb --in ${fasta} -d ${name}
      }
 
   runtime {
-    docker: "quay.io/comp-bio-aging/diamond:latest"
+    docker: "quay.io/comp-bio-aging/diamond:master"
   }
 
   output {
@@ -43,15 +48,25 @@ task diamond_index {
 }
 
 task copy {
-    Array[File] files
-    String destination
+    input {
+        Array[File] files
+        String destination
+    }
+
+    String where = sub(destination, ";", "_")
 
     command {
-        mkdir -p ${destination}
-        cp -L -R -u ${sep=' ' files} ${destination}
+        mkdir -p ~{where}
+        cp -L -R -u ~{sep=' ' files} ~{where}
+        declare -a files=(~{sep=' ' files})
+        for i in ~{"$"+"{files[@]}"};
+          do
+              value=$(basename ~{"$"}i)
+              echo ~{where}/~{"$"}value
+          done
     }
 
     output {
-        Array[File] out = files
+        Array[File] out = read_lines(stdout())
     }
 }

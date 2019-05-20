@@ -1,9 +1,11 @@
-workflow quant_index {
+version development
 
+workflow quant_index {
+input {
   File transcriptome
   String name
   String indexes_folder #will be created if needed
-
+}
   call salmon_index  {
       input:
           transcriptomeFile = transcriptome,
@@ -23,9 +25,11 @@ workflow quant_index {
 }
 
 task salmon_index {
-
+input{
   File transcriptomeFile
   String indexName
+
+}
 
   command {
     salmon index -t ${transcriptomeFile} -i ${indexName} --type quasi
@@ -43,15 +47,25 @@ task salmon_index {
 
 
 task copy {
-    Array[File] files
-    String destination
+    input {
+        Array[File] files
+        String destination
+    }
+
+    String where = sub(destination, ";", "_")
 
     command {
-        mkdir -p ${destination}
-        cp -L -R -u ${sep=' ' files} ${destination}
+        mkdir -p ~{where}
+        cp -L -R -u ~{sep=' ' files} ~{where}
+        declare -a files=(~{sep=' ' files})
+        for i in ~{"$"+"{files[@]}"};
+          do
+              value=$(basename ~{"$"}i)
+              echo ~{where}/~{"$"}value
+          done
     }
 
     output {
-        Array[File] out = files
+        Array[File] out = read_lines(stdout())
     }
 }

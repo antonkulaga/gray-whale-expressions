@@ -1,12 +1,15 @@
-workflow Diamond_Blast {
+version development
 
-  Int threads
-  File db
-  File query
-  String result_name
-  String results_folder
-  String mode
-  String output_format
+workflow Diamond_Blast {
+    input {
+      Int threads
+      File db
+      File query
+      String result_name
+      String results_folder
+      String mode
+      String output_format
+    }
 
   call diamond_blast {
       input:
@@ -31,12 +34,13 @@ workflow Diamond_Blast {
 }
 
 task make_examples{
-
-    File alignment_bam
-    File alignment_bai
-    File fasta
-    File fai
-    File example_dir
+    input{
+        File alignment_bam
+        File alignment_bai
+        File fasta
+        File fai
+        File example_dir
+    }
 
     command {
         mkdir data
@@ -60,13 +64,14 @@ task make_examples{
 }
 
 task diamond_blast {
-
+input {
   Int threads
   File database
   File query
   String name
   String mode
   String output_format
+}
 
     command {
         diamond ${mode} -d ${database}  -q ${query} \
@@ -104,7 +109,7 @@ task diamond_blast {
     #	qtitle means Query title
 
   runtime {
-    docker: "quay.io/comp-bio-aging/diamond:latest"
+    docker: "quay.io/comp-bio-aging/diamond:master"
   }
 
   output {
@@ -113,17 +118,26 @@ task diamond_blast {
 
 }
 
-
 task copy {
-    Array[File] files
-    String destination
+    input {
+        Array[File] files
+        String destination
+    }
+
+    String where = sub(destination, ";", "_")
 
     command {
-        mkdir -p ${destination}
-        cp -L -R -u ${sep=' ' files} ${destination}
+        mkdir -p ~{where}
+        cp -L -R -u ~{sep=' ' files} ~{where}
+        declare -a files=(~{sep=' ' files})
+        for i in ~{"$"+"{files[@]}"};
+          do
+              value=$(basename ~{"$"}i)
+              echo ~{where}/~{"$"}value
+          done
     }
 
     output {
-        Array[File] out = files
+        Array[File] out = read_lines(stdout())
     }
 }

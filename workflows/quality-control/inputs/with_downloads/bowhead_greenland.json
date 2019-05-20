@@ -3,5 +3,5 @@
   "quality_de_novo.threads": 4,
   "quality_de_novo.min_len": 40,
   "quality_de_novo.q": 19,
-  "quality_de_novo.results_folder": "/pipelines/results/graywhale/transcriptome/bowhead/greenland/kidney"
+  "quality_de_novo.results_folder": "/data/results/graywhale/transcriptome/bowhead/greenland/kidney"
 }

@@ -1,8 +1,12 @@
-workflow vsearch_index {
+version development
 
+workflow vsearch_index {
+input{
   File db
   String name
-  String indexes_folder = "/pipelines/indexes/vsearch"
+  String indexes_folder = "/data/indexes/vsearch"
+
+}
 
   call vsearch_make_index {
     input:
@@ -23,9 +27,11 @@ workflow vsearch_index {
 }
 
 task vsearch_make_index {
-
+input{
   File fasta
   String name
+
+}
 
     command {
         vsearch --makeudb_usearch ${fasta} --output ${name}.udb
@@ -43,16 +49,27 @@ task vsearch_make_index {
 
 }
 
+
 task copy {
-    Array[File] files
-    String destination
+    input {
+        Array[File] files
+        String destination
+    }
+
+    String where = sub(destination, ";", "_")
 
     command {
-        mkdir -p ${destination}
-        cp -L -R -u ${sep=' ' files} ${destination}
+        mkdir -p ~{where}
+        cp -L -R -u ~{sep=' ' files} ~{where}
+        declare -a files=(~{sep=' ' files})
+        for i in ~{"$"+"{files[@]}"};
+          do
+              value=$(basename ~{"$"}i)
+              echo ~{where}/~{"$"}value
+          done
     }
 
     output {
-        Array[File] out = files
+        Array[File] out = read_lines(stdout())
     }
 }

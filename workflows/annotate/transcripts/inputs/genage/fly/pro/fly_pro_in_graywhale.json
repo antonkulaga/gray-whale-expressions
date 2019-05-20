@@ -1,7 +1,7 @@
 {
-  "vsearch.query": "/pipelines/indexes/genage/lags/pro_fly_sequences.fasta",
+  "vsearch.query": "/data/indexes/genage/lags/pro_fly_sequences.fasta",
   "vsearch.result_name": "fly_pro_longevity_gray_whale",
-  "vsearch.results_folder": "/pipelines/results/graywhale/lags/fly/pro",
-  "vsearch.db": "/pipelines/indexes/vsearch/graywhale_mitya.udb",
+  "vsearch.results_folder": "/data/results/graywhale/lags/fly/pro",
+  "vsearch.db": "/data/indexes/vsearch/graywhale_mitya.udb",
   "vsearch.identity": "0.45"
 }

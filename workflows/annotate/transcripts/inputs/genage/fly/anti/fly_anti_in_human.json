@@ -1,7 +1,7 @@
 {
-  "vsearch.query": "/pipelines/indexes/genage/lags/anti_fly_sequences.fasta",
+  "vsearch.query": "/data/indexes/genage/lags/anti_fly_sequences.fasta",
   "vsearch.result_name": "fly_anti_longevity_human",
-  "vsearch.results_folder": "/pipelines/results/graywhale/lags/fly/anti",
-  "vsearch.db": "/pipelines/indexes/vsearch/human.udb",
+  "vsearch.results_folder": "/data/results/graywhale/lags/fly/anti",
+  "vsearch.db": "/data/indexes/vsearch/human.udb",
   "vsearch.identity": "0.45"
 }

@@ -1,10 +1,14 @@
-workflow busco_check {
+version development
 
-    String sequence_file
-    File lineage
-    Int threads
-    String mode
-    String name
+workflow busco_check {
+    input {
+        String sequence_file
+        File lineage
+        Int threads
+        String mode
+        String name
+
+    }
 
 
     call busco {
@@ -19,12 +23,13 @@ workflow busco_check {
 
 task busco {
 
-  File sequence
-  String lineage
-  String name
-  String mode #--mode sets the assessment MODE: genome, proteins, transcriptome
-  Int threads
-
+  input {
+    File sequence
+    String lineage
+    String name
+    String mode #--mode sets the assessment MODE: genome, proteins, transcriptome
+    Int threads
+   }
   #python BUSCO.py -i [SEQUENCE_FILE] -l [LINEAGE] -o [OUTPUT_NAME] -m [MODE] [OTHER OPTIONS]
 
   command {

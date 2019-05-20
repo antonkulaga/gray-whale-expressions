@@ -1,10 +1,13 @@
-workflow transdecoder_diamond {
+version development
 
-  File transcripts
-  File diamond_db
-  Int threads
-  String orfs_name
-  String results_folder
+workflow transdecoder_diamond {
+    input{
+      File transcripts
+      File diamond_db
+      Int threads
+      String orfs_name
+      String results_folder
+    }
 
 
   call transdecoder_orfs {
@@ -48,8 +51,9 @@ workflow transdecoder_diamond {
 }
 
 task transdecoder_orfs {
-
-  File transcripts
+    input{
+      File transcripts
+    }
 
   command {
     /opt/TransDecoder/TransDecoder.LongOrfs -t ${transcripts}
@@ -69,11 +73,12 @@ task transdecoder_orfs {
 }
 
 task diamond_blast {
-
-  Int threads
-  File database
-  File query
-  String name
+    input{
+      Int threads
+      File database
+      File query
+      String name
+    }
 
     command {
         diamond blastp -d ${database}  -q ${query} \
@@ -82,7 +87,7 @@ task diamond_blast {
      }
 
   runtime {
-    docker: "quay.io/comp-bio-aging/diamond:latest"
+    docker: "quay.io/comp-bio-aging/diamond:master"
   }
 
   output {
@@ -93,9 +98,10 @@ task diamond_blast {
 
 
 task transdecoder_predict {
-
-  File transcripts
-  File diamond_hits
+    input{
+      File transcripts
+      File diamond_hits
+    }
 
   command {
     /opt/TransDecoder/TransDecoder.LongOrfs -t ${transcripts}
@@ -117,16 +123,27 @@ task transdecoder_predict {
   }
 }
 
+
 task copy {
-    Array[File] files
-    String destination
+    input {
+        Array[File] files
+        String destination
+    }
+
+    String where = sub(destination, ";", "_")
 
     command {
-        mkdir -p ${destination}
-        cp -L -R -u ${sep=' ' files} ${destination}
+        mkdir -p ~{where}
+        cp -L -R -u ~{sep=' ' files} ~{where}
+        declare -a files=(~{sep=' ' files})
+        for i in ~{"$"+"{files[@]}"};
+          do
+              value=$(basename ~{"$"}i)
+              echo ~{where}/~{"$"}value
+          done
     }
 
     output {
-        Array[File] out = files
+        Array[File] out = read_lines(stdout())
     }
 }

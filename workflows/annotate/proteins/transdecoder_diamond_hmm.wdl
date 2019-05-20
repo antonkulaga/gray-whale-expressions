@@ -1,12 +1,14 @@
-workflow transdecoder_diamond {
+version development
 
+workflow transdecoder_diamond {
+input{
   File transcripts
   File diamond_db
   File pfam
   Int threads
   String orfs_name
   String results_folder
-
+}
 
   call transdecoder_orfs {
       input:
@@ -63,8 +65,10 @@ workflow transdecoder_diamond {
 }
 
 task transdecoder_orfs {
-
+input{
   File transcripts
+
+}
 
   command {
     /opt/TransDecoder/TransDecoder.LongOrfs -t ${transcripts}
@@ -84,11 +88,13 @@ task transdecoder_orfs {
 }
 
 task diamond_blast {
-
+input{
   Int threads
   File database
   File query
   String name
+
+}
 
     command {
         diamond blastp -d ${database}  -q ${query} \
@@ -97,7 +103,7 @@ task diamond_blast {
      }
 
   runtime {
-    docker: "quay.io/comp-bio-aging/diamond:latest"
+    docker: "quay.io/comp-bio-aging/diamond:master"
   }
 
   output {
@@ -107,10 +113,12 @@ task diamond_blast {
 }
 
 task identify_protein_domains {
-
+input{
     File peptides
     File pfam
     Int threads
+
+}
 
     command {
         hmmpress ${pfam}
@@ -128,10 +136,12 @@ task identify_protein_domains {
 }
 
 task transdecoder_predict {
-
+input {
   File transcripts
   File pfam_hits
   File diamond_hits
+
+}
 
   command {
     /opt/TransDecoder/TransDecoder.LongOrfs -t ${transcripts}
@@ -155,11 +165,12 @@ task transdecoder_predict {
 
 
 task transdecoder_predict_old {
-
-  File transcripts
-  File pfam_hits
-  File diamond_hits
-  File transdecoder_dir
+    input {
+      File transcripts
+      File pfam_hits
+      File diamond_hits
+      File transdecoder_dir
+    }
 
   command {
     cp -R -u ${transdecoder_dir} ${basename(transdecoder_dir)}
@@ -183,15 +194,25 @@ task transdecoder_predict_old {
 
 
 task copy {
-    Array[File] files
-    String destination
+    input {
+        Array[File] files
+        String destination
+    }
+
+    String where = sub(destination, ";", "_")
 
     command {
-        mkdir -p ${destination}
-        cp -L -R -u ${sep=' ' files} ${destination}
+        mkdir -p ~{where}
+        cp -L -R -u ~{sep=' ' files} ~{where}
+        declare -a files=(~{sep=' ' files})
+        for i in ~{"$"+"{files[@]}"};
+          do
+              value=$(basename ~{"$"}i)
+              echo ~{where}/~{"$"}value
+          done
     }
 
     output {
-        Array[File] out = files
+        Array[File] out = read_lines(stdout())
     }
 }

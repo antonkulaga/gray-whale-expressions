@@ -1,11 +1,14 @@
-workflow vsearch {
+version development
 
+workflow vsearch {
+input{
   Int threads = 0
   File db
   File query
   String result_name
   String results_folder
   Float identity = 0.45
+}
 
   call global_search {
       input:
@@ -29,12 +32,13 @@ workflow vsearch {
 }
 
 task global_search {
-
+input{
     File query
     File database
     String name
     Int threads
     Float identity
+}
 
     command {
      vsearch --usearch_global ${query} --db ${database} --blast6out ${name}.blast6  --threads ${threads} --id ${identity}
@@ -53,16 +57,27 @@ task global_search {
 }
 
 
+
 task copy {
-    Array[File] files
-    String destination
+    input {
+        Array[File] files
+        String destination
+    }
+
+    String where = sub(destination, ";", "_")
 
     command {
-        mkdir -p ${destination}
-        cp -L -R -u ${sep=' ' files} ${destination}
+        mkdir -p ~{where}
+        cp -L -R -u ~{sep=' ' files} ~{where}
+        declare -a files=(~{sep=' ' files})
+        for i in ~{"$"+"{files[@]}"};
+          do
+              value=$(basename ~{"$"}i)
+              echo ~{where}/~{"$"}value
+          done
     }
 
     output {
-        Array[File] out = files
+        Array[File] out = read_lines(stdout())
     }
 }

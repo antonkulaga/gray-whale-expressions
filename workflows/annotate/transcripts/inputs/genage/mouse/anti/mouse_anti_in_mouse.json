@@ -1,7 +1,7 @@
 {
-  "vsearch.query": "/pipelines/indexes/genage/lags/anti_mouse_sequences.fasta",
+  "vsearch.query": "/data/indexes/genage/lags/anti_mouse_sequences.fasta",
   "vsearch.result_name": "mouse_anti_longevity_mouse",
-  "vsearch.results_folder": "/pipelines/results/graywhale/lags/mouse/anti",
-  "vsearch.db": "/pipelines/indexes/vsearch/mouse.udb",
+  "vsearch.results_folder": "/data/results/graywhale/lags/mouse/anti",
+  "vsearch.db": "/data/indexes/vsearch/mouse.udb",
   "vsearch.identity": "0.45"
 }

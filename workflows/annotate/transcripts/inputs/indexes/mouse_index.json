@@ -1,4 +1,4 @@
 {
-  "vsearch_index.db": "/pipelines/indexes/MOUSE/M17/gencode.vM17.transcripts.fa",
+  "vsearch_index.db": "/data/indexes/MOUSE/M17/gencode.vM17.transcripts.fa",
   "vsearch_index.name": "mouse"
 }

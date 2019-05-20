@@ -1,7 +1,7 @@
 {
-  "vsearch.query": "/pipelines/indexes/genage/lags/pro_worm_sequences.fasta",
+  "vsearch.query": "/data/indexes/genage/lags/pro_worm_sequences.fasta",
   "vsearch.result_name": "worm_pro_longevity_naked_mole_rat_ensembl",
-  "vsearch.results_folder": "/pipelines/results/graywhale/lags/worm/pro",
-  "vsearch.db": "/pipelines/indexes/vsearch/NMR_female_ensembl.udb",
+  "vsearch.results_folder": "/data/results/graywhale/lags/worm/pro",
+  "vsearch.db": "/data/indexes/vsearch/NMR_female_ensembl.udb",
   "vsearch.identity": "0.45"
 }

@@ -1,9 +1,13 @@
 workflow annotate_de_novo {
-  File transcripts
-  File blast_db
-  File pfam
-  Int threads
-  String results_folder
+
+   input {
+    File transcripts
+    File blast_db
+    File pfam
+    Int threads
+    String results_folder
+
+   }
 
   call transdecoder {
       input:
