@@ -1,6 +1,0 @@
-{
-  "annotate_de_novo.transcripts": "/data/results/graywhale/transcriptome/trinity_out_dir/Trinity-GG.fasta",
-  "annotate_de_novo.blast_db": "/data/indexes/uniprot/uniprot_sprot.fasta",
-  "annotate_de_novo.threads": 8,
-  "annotate_de_novo.pfam": "/data/indexes/ebi/Pfam-A.hmm"
-}

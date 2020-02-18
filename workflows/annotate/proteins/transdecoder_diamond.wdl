@@ -56,11 +56,11 @@ task transdecoder_orfs {
     }
 
   command {
-    /opt/TransDecoder/TransDecoder.LongOrfs -t ${transcripts}
+    /opt/TransDecoder/TransDecoder.LongOrfs -t ~{transcripts}
   }
 
   runtime {
-    docker: "quay.io/comp-bio-aging/transdecoder@sha256:5d2c702e7d430d8ea1c1dbb8d5706a0d4c208ace2c223f9fc43fb52fd0471f7c"
+    docker: "quay.io/comp-bio-aging/transdecoder:latest"
   }
 
   output {
@@ -81,7 +81,7 @@ task diamond_blast {
     }
 
     command {
-        diamond blastp -d ${database}  -q ${query} \
+        diamond blastp -d ~{database}  -q ~{query} \
           --more-sensitive -o ${name}.m8 \
           -f 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore
      }
@@ -104,12 +104,12 @@ task transdecoder_predict {
     }
 
   command {
-    /opt/TransDecoder/TransDecoder.LongOrfs -t ${transcripts}
-    /opt/TransDecoder/TransDecoder.Predict -t ${transcripts} --retain_blastp_hits ${diamond_hits}
+    /opt/TransDecoder/TransDecoder.LongOrfs -t ~{transcripts}
+    /opt/TransDecoder/TransDecoder.Predict -t ~{transcripts} --retain_blastp_hits ~{diamond_hits}
   }
 
   runtime {
-    docker: "quay.io/comp-bio-aging/transdecoder@sha256:5d2c702e7d430d8ea1c1dbb8d5706a0d4c208ace2c223f9fc43fb52fd0471f7c"
+    docker: "quay.io/comp-bio-aging/transdecoder:latest"
   }
 
   output {

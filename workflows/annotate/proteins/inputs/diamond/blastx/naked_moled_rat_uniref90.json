@@ -1,0 +1,7 @@
+{
+  "transdecoder_diamond.results_folder": "/data/results/graywhale/transcriptome/diamond/blastx",
+  "transdecoder_diamond.threads": 4,
+  "transdecoder_diamond.diamond_db": "/data/indexes/diamond/uniref90.dmnd",
+  "transdecoder_diamond.orfs_name": "naked_mole_rat_uniref90",
+  "transdecoder_diamond.transcripts": "/data/indexes/NAKED_MOLE_RAT/GEBF01/GEBF01.1.fsa_nt"
+}
