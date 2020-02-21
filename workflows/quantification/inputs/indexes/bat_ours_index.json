@@ -1,0 +1,5 @@
+{
+  "quant_index.indexes_folder": "/data/indexes/salmon/1.1.0/de_novo/",
+  "quant_index.transcriptome": "/data/samples/de_novo/bat/liver_kidney_light/assembly/results/transcripts.fasta",
+  "quant_index.name": "bat_ours"
+}

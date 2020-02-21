@@ -33,7 +33,7 @@ task diamond_index {
     }
 
     command {
-        diamond makedb --in ${fasta} -d ${name}
+        diamond makedb --in ~{fasta} -d ~{name}
      }
 
   runtime {

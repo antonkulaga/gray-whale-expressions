@@ -1,17 +1,15 @@
 version development
 
 workflow quality_de_novo {
-input {
-  Int threads
-  Int min_len
-  Int q
-  File reads_1
-  File reads_2
-  String results_folder #will be created if needed
-  String adapter = "TruSeq3-PE"
-
-
-}
+    input {
+      Int threads
+      Int min_len
+      Int q
+      File reads_1
+      File reads_2
+      String results_folder #will be created if needed
+      String adapter = "TruSeq3-PE"
+    }
   call report as initial_report_1 {
       input:
           sampleName = basename(reads_1, ".fastq.gz"),
@@ -93,7 +91,7 @@ input{
 }
 
   command {
-    /opt/FastQC/fastqc ${file} -o .
+    /opt/FastQC/fastqc ~{file} -o .
   }
 
   runtime {
@@ -114,7 +112,7 @@ input {
 
 }
    command {
-        multiqc ${folder} --outdir ${report}
+        multiqc ~{folder} --outdir ~{report}
    }
 
    runtime {
@@ -140,15 +138,15 @@ input {
 
     command {
        /usr/local/bin/trimmomatic PE \
-            ${reads_1} \
-            ${reads_2} \
-            ${basename(reads_1, ".fastq.gz")}_trimmed.fastq.gz \
-            ${basename(reads_1, ".fastq.gz")}_trimmed_unpaired.fastq.gz \
-            ${basename(reads_2, ".fastq.gz")}_trimmed.fastq.gz \
-            ${basename(reads_2, ".fastq.gz")}_trimmed_unpaired.fastq.gz \
-            -threads ${threads} \
-            ILLUMINACLIP:/usr/local/share/trimmomatic/adapters/${adapter}.fa:2:30:10:1:TRUE \
-            SLIDINGWINDOW:4:${q} MINLEN:${min_len}
+            ~{reads_1} \
+            ~{reads_2} \
+            ~{basename(reads_1, ".fastq.gz")}_trimmed.fastq.gz \
+            ~{basename(reads_1, ".fastq.gz")}_trimmed_unpaired.fastq.gz \
+            ~{basename(reads_2, ".fastq.gz")}_trimmed.fastq.gz \
+            ~{basename(reads_2, ".fastq.gz")}_trimmed_unpaired.fastq.gz \
+            -threads ~{threads} \
+            ILLUMINACLIP:/usr/local/share/trimmomatic/adapters/~{adapter}.fa:2:30:10:1:TRUE \
+            SLIDINGWINDOW:4:~{q} MINLEN:~{min_len}
     }
 
     runtime {

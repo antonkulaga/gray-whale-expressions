@@ -1,0 +1,9 @@
+{
+  "Diamond_Blast.threads": 8,
+  "Diamond_Blast.result_name": "ncbi_miotis_brandis_in_uniref90_blastp",
+  "Diamond_Blast.results_folder": "/data/results/gray-whale/diamond/blastp",
+  "Diamond_Blast.query": "/data/ncbi/species/Myotis_brandtii/ncbi-genomes-2020-02-20/GCF_000412655.1_ASM41265v1/GCF_000412655.1_ASM41265v1_protein.faa",
+  "Diamond_Blast.db": "/data/indexes/diamond/uniref90.dmnd",
+  "Diamond_Blast.mode": "blastp",
+  "Diamond_Blast.output_format": "6 qseqid qlen sseqid slen qstart qend sstart send qseq sseq evalue bitscore score length pident nident mismatch positive gapopen gaps ppos qcovhsp qtitle"
+}

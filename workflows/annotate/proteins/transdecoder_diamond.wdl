@@ -82,7 +82,7 @@ task diamond_blast {
 
     command {
         diamond blastp -d ~{database}  -q ~{query} \
-          --more-sensitive -o ${name}.m8 \
+          --more-sensitive -o ~{name}.m8 \
           -f 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore
      }
 

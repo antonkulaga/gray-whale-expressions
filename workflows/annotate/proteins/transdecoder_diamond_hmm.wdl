@@ -1,14 +1,14 @@
 version development
 
 workflow transdecoder_diamond {
-input{
-  File transcripts
-  File diamond_db
-  File pfam
-  Int threads
-  String orfs_name
-  String results_folder
-}
+    input{
+      File transcripts
+      File diamond_db
+      File pfam
+      Int threads
+      String orfs_name
+      String results_folder
+    }
 
   call transdecoder_orfs {
       input:
@@ -97,8 +97,8 @@ input{
 }
 
     command {
-        diamond blastp -d ${database}  -q ${query} \
-          --more-sensitive -o ${name}.m8 \
+        diamond blastp -d ~{database}  -q ~{query} \
+          --more-sensitive -o ~{name}.m8 \
           -f 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore
      }
 
@@ -121,8 +121,8 @@ input{
 }
 
     command {
-        hmmpress ${pfam}
-        hmmscan --cpu ${threads} --domtblout hits.out ${pfam} ${peptides}
+        hmmpress ~{pfam}
+        hmmscan --cpu ~{threads} --domtblout hits.out ~{pfam} ~{peptides}
     }
 
     runtime {
@@ -144,8 +144,8 @@ input {
 }
 
   command {
-    /opt/TransDecoder/TransDecoder.LongOrfs -t ${transcripts}
-    /opt/TransDecoder/TransDecoder.Predict -t ${transcripts} --retain_pfam_hits ${pfam_hits} --retain_blastp_hits ${diamond_hits}
+    /opt/TransDecoder/TransDecoder.LongOrfs -t ~{transcripts}
+    /opt/TransDecoder/TransDecoder.Predict -t ~{transcripts} --retain_pfam_hits ~{pfam_hits} --retain_blastp_hits ~{diamond_hits}
   }
 
   runtime {
@@ -173,8 +173,8 @@ task transdecoder_predict_old {
     }
 
   command {
-    cp -R -u ${transdecoder_dir} ${basename(transdecoder_dir)}
-    /opt/TransDecoder/TransDecoder.Predict -t ${transcripts} --retain_pfam_hits ${pfam_hits} --retain_blastp_hits ${diamond_hits}
+    cp -R -u ~{transdecoder_dir} ~{basename(transdecoder_dir)}
+    /opt/TransDecoder/TransDecoder.Predict -t ~{transcripts} --retain_pfam_hits ~{pfam_hits} --retain_blastp_hits ~{diamond_hits}
   }
 
   runtime {

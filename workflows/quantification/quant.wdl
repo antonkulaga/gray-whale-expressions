@@ -1,10 +1,13 @@
-workflow quantification {
+version development
 
-    File index
-    File reads_1
-    File reads_2
-    Int threads
-    String results_folder
+workflow quantification {
+    input{
+        File index
+        File reads_1
+        File reads_2
+        Int threads
+        String results_folder
+    }
 
 
     call salmon {
@@ -24,13 +27,15 @@ workflow quantification {
 }
 
 task salmon {
-  File index
-  File reads_1
-  File reads_2
-  Int numThreads
+    input{
+      File index
+      File reads_1
+      File reads_2
+      Int numThreads
+    }
 
   command {
-    salmon quant -i ${index} --threads ${numThreads} -l A -1 ${reads_1} -2 ${reads_2} -o transcripts_quant
+    salmon quant -i ~{index} --threads ~{numThreads} -l A -1 ~{reads_1} -2 ~{reads_2} -o transcripts_quant
   }
 
   runtime {
@@ -42,14 +47,15 @@ task salmon {
   }
 }
 
-
 task copy {
-    Array[File] files
-    String destination
+    input {
+        Array[File] files
+        String destination
+    }
 
     command {
-        mkdir -p ${destination}
-        cp -L -R -u ${sep=' ' files} ${destination}
+        mkdir -p ~{destination}
+        cp -L -R -u ~{sep=' ' files} ~{destination}
     }
 
     output {

@@ -44,13 +44,13 @@ task make_examples{
 
     command {
         mkdir data
-        cp ${alignment_bam} ${alignment_bai} ${fai} ${fasta} data
+        cp ~{alignment_bam} ~{alignment_bai} ~{fai} ~{fasta} data
 
         /opt/deepvariant/bin/make_examples \
             --mode calling \
-            --ref data/${basename(fasta)} \
-            --reads data/${basename(alignment_bam)} \
-            --examples ${example_dir}/output.examples.tfrecord \
+            --ref data/~{basename(fasta)} \
+            --reads data/~{basename(alignment_bam)} \
+            --examples ~{example_dir}/output.examples.tfrecord \
             --regions "chr20:10,000,000-10,010,000"
     }
 
@@ -74,9 +74,9 @@ input {
 }
 
     command {
-        diamond ${mode} -d ${database}  -q ${query} \
-          --more-sensitive -o ${name}.m8 \
-          -f ${output_format}
+        diamond ~{mode} -d ~{database}  -q ~{query} \
+          --more-sensitive -o ~{name}.m8 \
+          -f ~{output_format}
      }
     #	qseqid means Query Seq - id
     #	qlen means Query sequence length
