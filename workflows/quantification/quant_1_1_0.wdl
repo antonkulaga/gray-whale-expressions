@@ -59,7 +59,6 @@ task salmon {
     File out = "quant_" + name
     File lib = out + "/" + "lib_format_counts.json"
     File quant = out + "/" + "quant.sf"
-    File quant_genes =  out + "/" + "quant.genes.sf"
   }
 }
 

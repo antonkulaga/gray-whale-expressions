@@ -33,45 +33,15 @@ workflow Diamond_Blast {
 
 }
 
-task make_examples{
-    input{
-        File alignment_bam
-        File alignment_bai
-        File fasta
-        File fai
-        File example_dir
-    }
-
-    command {
-        mkdir data
-        cp ~{alignment_bam} ~{alignment_bai} ~{fai} ~{fasta} data
-
-        /opt/deepvariant/bin/make_examples \
-            --mode calling \
-            --ref data/~{basename(fasta)} \
-            --reads data/~{basename(alignment_bam)} \
-            --examples ~{example_dir}/output.examples.tfrecord \
-            --regions "chr20:10,000,000-10,010,000"
-    }
-
-    runtime {
-        docker: "gcr.io/deepvariant-docker/deepvariant"
-    }
-
-    output {
-        File out = example_dir+"output.examples.tfrecord"
-    }
-}
-
 task diamond_blast {
-input {
-  Int threads
-  File database
-  File query
-  String name
-  String mode
-  String output_format
-}
+    input {
+      Int threads
+      File database
+      File query
+      String name
+      String mode
+      String output_format
+    }
 
     command {
         diamond ~{mode} -d ~{database}  -q ~{query} \

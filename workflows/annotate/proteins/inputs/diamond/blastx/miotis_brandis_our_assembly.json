@@ -1,5 +1,5 @@
 {
-  "transdecoder_diamond.results_folder": "/data/results/graywhale/transcriptome/diamond/blastx",
+  "transdecoder_diamond.results_folder": "/data/results/gray-whale/transdecoder",
   "transdecoder_diamond.threads": 8,
   "transdecoder_diamond.diamond_db": "/data/indexes/diamond/uniref90.dmnd",
   "transdecoder_diamond.orfs_name": "miotis_brandis_uniref90",
