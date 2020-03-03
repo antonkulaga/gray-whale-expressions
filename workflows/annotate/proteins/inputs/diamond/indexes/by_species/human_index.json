@@ -1,0 +1,5 @@
+{
+  "Diamond_Index.name": "HUMAN_GRCh38_v33",
+  "Diamond_Index.db": "/data/indexes/HUMAN/33/gencode.v33.pc_translations.fa",
+  "Diamond_Index.results_folder": "/data/indexes/diamond"
+}

@@ -1,0 +1,5 @@
+{
+  "Diamond_Index.name": "uniprot_sprot",
+  "Diamond_Index.db": "/data/indexes/uniprot/uniprot_sprot.fasta",
+  "Diamond_Index.results_folder": "/data/indexes/diamond"
+}
