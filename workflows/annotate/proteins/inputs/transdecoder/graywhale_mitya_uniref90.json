@@ -1,0 +1,8 @@
+{
+  "transdecoder_diamond.results_folder": "/data/results/gray-whale/",
+  "transdecoder_diamond.threads": 64,
+  "transdecoder_diamond.diamond_db": "/data/indexes/diamond/uniref90.dmnd",
+  "transdecoder_diamond.orfs_name": "graywhale_mitya_uniref90",
+  "transdecoder_diamond.transcripts": "/data/indexes/GRAY_WHALE/Trin_Mitya.Trinity.fasta"
+}
+

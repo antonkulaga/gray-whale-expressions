@@ -1,0 +1,9 @@
+{
+  "Diamond_Blast.threads": 8,
+  "Diamond_Blast.result_name": "lags_in_human",
+  "Diamond_Blast.results_folder": "/data/results/gray-whale/diamond/blastp/lags/",
+  "Diamond_Blast.query": "/data/databases/genage/genage_proteins.fasta",
+  "Diamond_Blast.db": "/data/indexes/diamond/HUMAN_GRCh38_v33.dmnd",
+  "Diamond_Blast.mode": "blastp",
+  "Diamond_Blast.output_format": "6 qseqid qlen sseqid slen qstart qend sstart send qseq sseq evalue bitscore score length pident nident mismatch positive gapopen gaps ppos qcovhsp qtitle"
+}

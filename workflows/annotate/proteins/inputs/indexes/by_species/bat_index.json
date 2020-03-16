@@ -1,0 +1,5 @@
+{
+  "Diamond_Index.name": "BAT",
+  "Diamond_Index.db": "/data/indexes/BAT/transcripts.fasta.transdecoder.pep",
+  "Diamond_Index.results_folder": "/data/indexes/diamond"
+}

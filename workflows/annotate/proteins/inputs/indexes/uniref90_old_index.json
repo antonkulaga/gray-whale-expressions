@@ -1,0 +1,5 @@
+{
+  "Diamond_Index.name": "uniref90_old",
+  "Diamond_Index.db": "/data/indexes/uniprot/old/uniref90.fasta",
+  "Diamond_Index.results_folder": "/data/indexes/diamond"
+}

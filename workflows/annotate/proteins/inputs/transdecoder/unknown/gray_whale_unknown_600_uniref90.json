@@ -1,0 +1,7 @@
+{
+  "transdecoder_diamond.results_folder": "/data/results/gray-whale/unknown",
+  "transdecoder_diamond.threads": 16,
+  "transdecoder_diamond.diamond_db": "/data/indexes/diamond/uniref90.dmnd",
+  "transdecoder_diamond.orfs_name": "unknown_600",
+  "transdecoder_diamond.transcripts": "/data/results/gray-whale/unknown/Unknown_top600.fasta"
+}
